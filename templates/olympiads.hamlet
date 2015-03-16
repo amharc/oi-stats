@@ -1,0 +1,10 @@
+<h1>
+    _{MsgOlympiads}
+
+$if null olympiads
+    <p>_{MsgNoOlympiadsYet}
+$else
+    <ul>
+        $forall Entity _ olympiad <- olympiads
+            <li>
+              <a href=@{OlympiadR $ olympiadIdent olympiad}>_{MsgOlympiadName $ olympiadIdent olympiad}

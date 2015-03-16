@@ -1,0 +1,28 @@
+<header role="banner">
+    <h1>
+        _{MsgOlympiadName $ olympiadIdent olympiad}
+
+$if viewerIsAdmin
+    <a href="#" data-toggle="modal" data-target="#confirm" role="button" .btn .btn-danger .btn-sm>
+        <span .glyphicon .glyphicon-remove aria-hidden="true">
+        _{MsgOlympiadDelete}
+
+    <div #confirm .modal .fade role="dialog">
+        <div .modal-dialog>
+            <div .modal-content>
+                <div .modal-body>
+                    _{MsgConfirmAreYouSure}
+                <div .modal-footer>
+                    <button type="button" data-dismiss="modal" .btn .btn-danger #delete onclick="javascript:deleteOlympiad()">
+                        _{MsgConfirmDelete}
+                    <button type="button" data-dismiss="modal" .btn>
+                        _{MsgConfirmCancel}
+
+
+$if null stages
+        <p>_{MsgNoStagesYet}
+$else
+        <ul role="list">
+            $forall Entity _ stage <- stages
+                <li role="listitem">
+                    <a href=@{StageR (olympiadIdent olympiad) (stageStage stage)}>_{MsgStageName $ stageStage stage}

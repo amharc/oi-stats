@@ -1,0 +1,13 @@
+<a href=@{OlympiadR $ olympiadIdent olympiad}>_{MsgOlympiadName $ olympiadIdent olympiad}
+<ul>
+    $forall (Entity _ participation, Entity _ stage, maybeSchool) <- list
+        <li>
+            <a href=@{StageR (olympiadIdent olympiad) (stageStage stage)}>_{MsgStageName $ stageStage stage}
+            $maybe sum <- participationSum participation
+                _{MsgPoints sum} &nbsp;
+            $maybe award <- participationAward participation
+                &mdash; _{renderAward award}
+            <br>
+            $maybe (Entity schoolId school) <- maybeSchool
+                _{MsgRepresenting}
+                <a href=@{SchoolR schoolId}>#{schoolName school}

@@ -1,0 +1,3 @@
+div#map-canvas, div#chart-canvas {
+	width: 100%;
+}

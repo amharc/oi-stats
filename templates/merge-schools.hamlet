@@ -1,0 +1,9 @@
+<header role="banner">
+    <h1>
+        _{MsgMergeSchools cityname}
+
+<div>
+    <form method=post enctype=#{formEnctype} action=@{MergeSchoolsR cityname} .form-horizontal>
+        <fieldset>
+            <div .form-group>
+                ^{formWidget}

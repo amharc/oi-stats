@@ -1,0 +1,19 @@
+google.load('visualization', '1.0', {'packages':['corechart']});
+google.setOnLoadCallback(drawChart);
+
+function drawChart() {
+	var newData = #{toJSON citiesAwardTotal};
+	newData.unshift(['lat', 'lng', 'city', 'total']);
+	var data = google.visualization.arrayToDataTable(newData);
+
+	var options = {
+		region: 'PL',
+		displayMode: 'markers',
+		colorAxis: {colors: ['blue', 'yellow']}
+	};
+
+	var chart = new google.visualization.GeoChart(document.getElementById('chart-canvas'));
+	chart.draw(data, options);
+}
+
+$(document).ready(function() { $("#results").tablesorter({ sortList: [[0, 0]]}); });

@@ -1,0 +1,77 @@
+<header role="banner">
+    <h1>
+        <a href=@{OlympiadR olympiadNum}>
+            _{MsgOlympiadName olympiadNum}
+        &mdash;
+        <a href=@{StageR olympiadNum stageNum}>
+            _{MsgStageName $ stageStage stage}
+
+<nav role="navigation">
+    <a href=@{StageR olympiadNum stageNum} .btn .btn-default .btn-sm role="button">
+        <span .glyphicon .glyphicon-th-list>
+        _{MsgStageFromChart}
+
+<div role="tabpanel">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+            <a href="#chart" aria-controls="chart" role="tab" data-toggle="tab">
+                _{MsgChart}
+        <li role="presentation">
+            <a href="#list" aria-controls="list" role="tab" data-toggle="tab">
+                _{MsgList}
+
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane fade in active" id="chart">
+        <figure>
+            <div #chart-canvas>
+
+    <div role="tabpanel" class="tab-pane fade" id="list">
+        <table .table-striped .table-bordered .tablesorter #results .table .table-hover role="grid" aria-readonly="true">
+            $if stageFinal stage
+                <thead>
+                    <tr role="row">
+                        <th role="columnheader">
+                            _{MsgStageResultsCity}
+                        <th role="columnheader">
+                            _{MsgLaureateI}
+                        <th role="columnheader">
+                            _{MsgLaureateII}
+                        <th role="columnheader">
+                            _{MsgLaureateIII}
+                        <th role="columnheader">
+                            _{MsgFinalistHonMen}
+                        <th role="columnheader">
+                            _{MsgFinalist}
+                        <th role="columnheader">
+                            _{MsgTotal}
+                <tbody>
+                    $forall [city, t, l1, l2, l3, fcl, f] <- L.tail citiesAwardCnt
+                        <tr role="row">
+                            <td role="gridcell">
+                                <a href=@{CityR city}>#{city}
+                            <td role="gridcell">
+                                #{l1}
+                            <td role="gridcell">
+                                #{l2}
+                            <td role="gridcell">
+                                #{l3}
+                            <td role="gridcell">
+                                #{fcl}
+                            <td role="gridcell">
+                                #{f}
+                            <td role="gridcell">
+                                #{t}
+            $else
+                <thead>
+                    <tr role="row">
+                        <th role="columnheader">
+                            _{MsgStageResultsCity}
+                        <th role="columnheader">
+                            _{MsgAdvanced}
+                <tbody>
+                    $forall [city, t] <- L.tail citiesAwardCnt
+                        <tr role="row">
+                            <td role="gridcell">
+                                <a href=@{CityR city}>#{city}
+                            <td role="gridcell">
+                                #{t}

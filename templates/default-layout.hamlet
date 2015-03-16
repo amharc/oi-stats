@@ -1,0 +1,61 @@
+<header .navbar .navbar-default .navbar-static-top role="banner">
+    <div .container>
+        <div .navbar-header>
+            <span .navbar-brand>_{MsgMainTitle}
+        <nav #navbar .navbar-collapse .collapse role="navigation">
+            <ul .nav .navbar-nav>
+                <li>
+                    <a href="@{OlympiadsR}">
+                        <span .glyphicon .glyphicon-list aria-hidden="true">
+                        _{MsgOlympiads}
+                <li>
+                    <a href="@{ContestantSearchR}">
+                        <span .glyphicon .glyphicon-user aria-hidden="true">
+                        _{MsgContestants}
+                $if viewerIsAdmin
+                    <li>
+                        <a href="@{ParseResultsR}">
+                            <span .glyphicon .glyphicon-import aria-hidden="true">
+                            _{MsgParseResultsTitle}
+ 
+            <ul .nav .navbar-nav .navbar-right>
+                $maybe (Entity _ user) <- mu
+                    <li>
+                        <p .navbar-text>#{userIdent user}
+                    <li>
+                        <a href=@{AuthR LogoutR} role="button">
+                            <span .glyphicon .glyphicon-log-out aria-hidden="true">
+                            _{MsgLogout}
+                $nothing
+                    <li>
+                        <a href=@{AuthR LoginR} role="button">
+                            <span .glyphicon .glyphicon-log-in aria-hidden="true">
+                            _{MsgLogin}
+               <li .dropdown>
+                    <a href="#" .dropdown-toggle data-toggle="dropdown" role="button" aria-expanded="false">
+                        <span .glyphicon .glyphicon-flag aria-hidden="true">
+                        _{MsgSelectLanguage}
+                        <span .caret>
+
+                    <ul .dropdown-menu role="menu">
+                        $forall lang <- langs
+                            <li>
+                                <form method="post" action=@{LangR}>
+                                    $maybe cur <- current
+                                        <input type="hidden" name="dest" value=@{cur}>
+                                    <input type="hidden" name="lang" value="#{fst lang}">
+                                    <a href="#" onclick="javascript:this.parentNode.submit()">#{snd lang}
+
+
+                    
+<main #main role="main">
+    <div .container>
+        $maybe msg <- mmsg
+            <div .alert .alert-success .alert-dismissible role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">
+                        &times;
+                <span .glyphicon .glyphicon-ok aria-hidden="true">
+                #{msg}
+        ^{widget}
+

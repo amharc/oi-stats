@@ -1,0 +1,114 @@
+<header role="banner">
+    <h1>
+        <a href=@{OlympiadR $ olympiadIdent olympiad}>
+            _{MsgOlympiadName $ olympiadIdent olympiad}
+        &mdash;
+        _{MsgStageName $ stageStage stage}
+
+<div .btn-group role="group">
+    <a href=@{StageChartR olympiadNum stageNum} .btn .btn-default .btn-sm role="button">
+        <span .glyphicon .glyphicon-stats aria-hidden="true">
+        _{MsgStageToChart}
+
+    $if viewerIsAdmin
+        <button .btn .btn-danger .btn-sm data-toggle="modal" data-target="#confirm" role="button">
+            <span .glyphicon .glyphicon-remove aria-hidden="true">
+            _{MsgStageDelete}
+
+        <div #confirm .modal .fade role="dialog">
+            <div .modal-dialog>
+                <div .modal-content>
+                    <div .modal-body>
+                        _{MsgConfirmAreYouSure}
+                    <div .modal-footer>
+                        <button type="button" data-dismiss="modal" .btn .btn-danger #delete onclick="javascript:deleteStage()">
+                            _{MsgConfirmDelete}
+                        <button type="button" data-dismiss="modal" .btn>
+                            _{MsgConfirmCancel}
+<figure>
+    <div #map-canvas>
+
+<table .table-striped .table-bordered .table-hover .table .table-responsive .my-results-table role="grid" aria-readonly="true">
+    <tr role="row">
+        <th role="columnheader">
+            _{MsgStageResultsPosition}
+        $if stageFinal stage
+          <th role="columnheader">
+            _{MsgStageResultsAward}
+        <th role="columnheader">
+            _{MsgStageResultsName}
+        <th role="columnheader">
+            _{MsgStageResultsSurname}
+        <th role="columnheader">
+            _{MsgStageResultsClass}
+        <th role="columnheader">
+            _{MsgStageResultsSchool}
+        <th role="columnheader">
+            _{MsgStageResultsCity}
+        $forall Entity _ task <- tasks
+            <th role="columnheader">
+                #{taskName task}
+        <th role="columnheader">
+            _{MsgStageResultsSum}
+    $forall lst <- nrows
+        <tr role="row">
+            <td role="rowheader" .text-muted>
+                $maybe _ <- rankingSum $ entityVal $ L.head lst
+                    #{show $ rankingPosition $ entityVal $ L.head lst}
+                $nothing
+                    ?
+
+            $if stageNum == 3
+                <td role="gridcell">
+                    $maybe award <- rankingAward $ entityVal $ L.head lst
+                        $case award
+                            $of LaureateI
+                                <span .contestant-gold>
+                                    _{renderAward award}
+                            $of LaureateII
+                                <span .contestant-silver>
+                                    _{renderAward award}
+                            $of LaureateIII
+                                <span .contestant-bronze>
+                                    _{renderAward award}
+                            $of FinalistHonMen
+                                <span .contestant-honmen>
+                                    _{renderAward award}
+                            $of Finalist
+                                <span .contestant-finalist>
+                                    _{renderAward award}
+
+
+                    $nothing
+                        ???
+            <td role="gridcell">
+                #{rankingName $ entityVal $ L.head lst}
+            <td role="gridcell">
+                <a href=@{ContestantR $ rankingContestantid $ entityVal $ L.head lst}> #{rankingSurname $ entityVal $ L.head lst}
+            <td role="gridcell">
+                $maybe class <- rankingClass $ entityVal $ L.head lst
+                    #{class}
+                $nothing
+                    ?
+
+            <td role="gridcell">
+                $maybe schoolid <- rankingSchoolid $ entityVal $ L.head lst
+                    <a href=@{SchoolR schoolid}>#{fromJust $ rankingSchool $ entityVal $ L.head lst}
+                $nothing
+                    ?
+
+            <td role="gridcell">
+                <a href=@{CityR (rankingCity $ entityVal $ L.head lst)}>#{rankingCity $ entityVal $ L.head lst}
+
+            $forall subm <- lst
+                <td role="gridcell">
+                    $maybe result <- rankingResult $ entityVal $ subm
+                        #{result}
+                    $nothing
+                        -
+            <td role="gridcell" .text-muted>
+                $maybe sum <- rankingSum $ entityVal $ L.head lst
+                    #{sum}
+                $nothing
+                    ?
+      

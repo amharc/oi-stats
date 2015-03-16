@@ -1,0 +1,8 @@
+table#results {
+	padding-top: 40px;
+	width: 100%;
+}
+
+div#map-canvas, div#chart-canvas {
+	width: 100%;
+}

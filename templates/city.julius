@@ -1,0 +1,20 @@
+function initialize() {
+    var myCoords = #{toJSON $ mapMaybe cityToMarker [city]}
+
+    var mapOptions = {
+        center: #{toJSON $ centerMarker},
+        zoom: 5
+    };
+
+    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+		myCoords.map(function(coords) {
+			var marker = new google.maps.Marker({
+					position: coords,
+					map: map,
+					title: #{toJSON $ cityName city}
+			})
+		});
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);

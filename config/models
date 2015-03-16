@@ -1,0 +1,78 @@
+User
+    ident Text
+    isAdmin Bool
+    UniqueUser ident
+    deriving Typeable Eq
+
+Olympiad
+    ident Int
+    UniqueOlympiad ident
+    deriving Eq
+
+Stage
+    olympiad OlympiadId
+    stage Int
+    UniqueStage olympiad stage
+    deriving Eq
+
+Contestant
+    name Text
+    surname Text
+    city CityId
+    UniqueContestant surname name city
+    deriving Eq
+
+Task
+    stage StageId
+    sample Bool
+    name Text
+    deriving Eq
+
+City
+    name Text
+    latitude Double Maybe
+    longitude Double Maybe
+    UniqueCity name
+    deriving Eq
+
+School
+    name Text
+    city CityId
+    UniqueSchool city name
+    deriving Eq
+
+Participation
+    contestant ContestantId
+    stage StageId
+    class Text Maybe
+    award Award Maybe
+    sum Int Maybe
+    school SchoolId Maybe
+    UniqueParticipation contestant stage
+    deriving Eq
+
+Submission
+    task TaskId
+    participation ParticipationId
+    result Int Maybe
+    UniqueSubmission task participation
+    deriving Eq
+
+Ranking
+    stage StageId
+    position Int
+    award Award Maybe
+    name Text
+    surname Text
+    contestantid ContestantId
+    class Text Maybe
+    schoolid SchoolId Maybe
+    school Text Maybe
+    city Text
+    latitude Double Maybe
+    longitude Double Maybe
+    sum Int Maybe
+    tasksample Bool
+    taskname Text
+    task TaskId
+    result Int Maybe

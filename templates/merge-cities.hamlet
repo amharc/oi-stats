@@ -1,0 +1,8 @@
+<h1>
+    _{MsgMergeCities cityname}
+
+<div>
+    <form method=post enctype=#{formEnctype} action=@{MergeCitiesR cityname} .form-horizontal>
+        <fieldset>
+            <div .form-group>
+                ^{formWidget}

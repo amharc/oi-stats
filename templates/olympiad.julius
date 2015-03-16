@@ -1,0 +1,9 @@
+function deleteOlympiad() {
+    $.ajax({
+        url: "@{fst deleter $ olympiadIdent olympiad}",
+        type: #{toJSON $ snd deleter},
+        success: function(html) {
+            document.location = "@{OlympiadsR}";
+        }
+    });
+}

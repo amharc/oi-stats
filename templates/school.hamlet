@@ -1,0 +1,14 @@
+<header role="banner">
+    <h1>
+        #{schoolName school}
+    <h2>
+      <a href=@{CityR (cityName city)}>#{cityName city}
+
+<ul>
+  $forall (Entity contestantId contestant, olympiads) <- rows
+    <li>
+      <a href=@{ContestantR contestantId}>#{contestantName contestant} #{contestantSurname contestant}
+      <ul>
+        $forall (Entity olympiadId olympiad, list) <- olympiads
+          <li>
+            ^{innerOlympiad olympiadId olympiad list}

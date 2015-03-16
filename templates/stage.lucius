@@ -1,0 +1,24 @@
+div#map-canvas, div#chart-canvas {
+	width: 100%;
+	height: 300px;
+}
+
+.contestant-gold {
+    color: #ccac00;
+}
+
+.contestant-silver {
+    color: #c0c0c0;
+}
+
+.contestant-bronze {
+    color: #8d3d1b;
+}
+
+.contestant-honmen {
+    color: #082574;
+}
+
+.contestant-finalist {
+    .color: black;
+}

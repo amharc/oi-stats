@@ -1,0 +1,24 @@
+/static StaticR Static getStatic
+/auth   AuthR   Auth   getAuth
+
+/favicon.ico FaviconR GET
+/robots.txt RobotsR GET
+
+/ HomeR GET
+/lang LangR POST
+/olympiads OlympiadsR GET
+/parse ParseResultsR GET POST
+
+/olympiad/#Int OlympiadR GET DELETE
+/olympiad/#Int/delete OlympiadDeleteR POST
+/olympiad/#Int/stage/#Int StageR GET DELETE
+/olympiad/#Int/stage/#Int/delete StageDeleteR POST
+/olympiad/#Int/stage/#Int/chart StageChartR GET
+
+/city/#Text CityR GET
+/school/#SchoolId SchoolR GET
+
+/contestant/#ContestantId ContestantR GET
+!/contestant/search ContestantSearchR GET
+/city/#Text/schools/merge MergeSchoolsR GET POST
+/city/#Text/merge MergeCitiesR GET POST

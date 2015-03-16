@@ -1,0 +1,8 @@
+<h1 role="heading">#{contestantName contestant} #{contestantSurname contestant}
+<h3>
+    <a href=@{CityR (cityName city)}>#{cityName city}
+
+<ul role="list">
+    $forall (Entity olympiadId olympiad, list) <- participations
+        <li role="listitem">
+            ^{innerOlympiad olympiadId olympiad list}

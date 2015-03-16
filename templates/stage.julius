@@ -1,0 +1,51 @@
+function initialize() {
+    var myCoords = #{toJSON $ map snd markersWithNames}
+    var names = #{toJSON $ map fst markersWithNames}
+
+    var mapOptions = {
+        center: #{toJSON $ centerMarker},
+        zoom: 5,
+        mapTypeId: google.maps.MapTypeId.HYBRID
+    };
+
+    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    var points = myCoords.map(function(x) { return new google.maps.LatLng(x.lat, x.lng); });
+    var pointArray = new google.maps.MVCArray(points);
+
+    heatmap = new google.maps.visualization.HeatmapLayer({
+      data: pointArray
+    });
+
+    heatmap.setMap(map);
+
+    var infowindow = new google.maps.InfoWindow();
+
+    for(var i = 0, length = points.length; i < length; ++i) {
+      var data = points[i];
+      var name = names[i];
+      var marker = new google.maps.Marker({
+        position: data,
+        map: map,
+        title: name
+      });
+      google.maps.event.addListener(marker, 'click',
+        function() {
+          infowindow.close();
+          infowindow.setContent(this.title);
+          infowindow.open(map, this);
+        }
+      );
+    }
+}
+
+function deleteStage() {
+    $.ajax({
+        url: "@{fst deleter olympiadNum stageNum}",
+        type: #{toJSON $ snd deleter},
+        success: function(html) {
+            document.location = "@{OlympiadR olympiadNum}";
+        }
+    });
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);

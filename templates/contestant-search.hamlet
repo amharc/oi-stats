@@ -1,0 +1,78 @@
+<header role="banner">
+    <h1>
+        _{MsgContestants}
+
+<div>
+    <form method=get enctype=#{formEnctype} action=@{ContestantSearchR} .form-horizontal role="search">
+        <fieldset>
+
+            <div .form-group>
+                ^{formWidget}
+
+$if null results
+    $case formResults
+        $of FormSuccess _
+            <div .alert .alert-danger role="alert">
+                <span .glyphicon .glyphicon-exclamation-sign aria-hidden="true">
+                _{MsgSearchNoResults}
+        $of _
+<div role="tabpanel">
+    <ul class="nav nav-tabs" role="tablist">
+        $if not $ null results
+            <li role="presentation" .active>
+                <a href="#chart" aria-controls="chart" role="tab" data-toggle="tab">
+                    _{MsgChart}
+            <li role="presentation">
+                <a href="#list" aria-controls="list" role="tab" data-toggle="tab">
+                    _{MsgList}
+
+        <li role="presentation" :(null results):.active>
+            <a href="#help" aria-controls="help" role="tab" data-toggle="tab">
+                _{MsgHelp}
+
+    <div class="tab-content">
+        $if not $ null results
+            <div role="tabpanel" .tab-pane .fade .in .active #chart>
+                <figure>
+                    <div #chart-canvas>
+
+            <div role="tabpanel" .tab-pane .fade #list>
+                <ul role="list">
+                    $forall ((Entity contestantId contestant), (Entity _ city)) <- results
+                        <li role="listitem">
+                            <a href=@{ContestantR contestantId}>#{contestantName contestant} #{contestantSurname contestant}
+                            _{MsgContestantSearchFrom}
+                            <a href=@{CityR $ cityName city}>#{cityName city}
+
+        <div role="tabpanel" .tab-pane .fade :(null results):.in :(null results):.active #help>
+            <dl .dl-horizontal>
+                <dt>
+                    <code>
+                        15
+                <dd>
+                    _{MsgHelpSearchOlympiad 15}
+                <dt>
+                    <code>
+                        12.3
+                <dd>
+                    _{MsgHelpSearchOlympiadStage 12 3}
+                <dt>
+                    <code>
+                        *.2
+                <dd>
+                    _{MsgHelpSearchNotStage 2}
+                <dt>
+                    <code>
+                        *.2 &gt;= 300
+                <dd>
+                    _{MsgHelpSearchStageResult 2 300}
+                <dt>
+                    <code>
+                        22.3 &lt; 312
+                <dd>
+                    _{MsgHelpSearchOlympiadStageResult 22 3 312}
+                <dt>
+                    <code>
+                        15 and (14.2 or 11)
+                <dd>
+                    _{MsgHelpSearchCompositeQuery}
